@@ -665,6 +665,111 @@
   line-height: 1.4;
 }
 
+/* Documentation Agent Styles */
+.documentation-display {
+  margin-top: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+  border-radius: 12px;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.documentation-section {
+  margin-bottom: 1.5rem;
+}
+
+.documentation-section:last-child {
+  margin-bottom: 0;
+}
+
+.documentation-section h4 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.documentation-section h4::before {
+  content: '';
+  width: 4px;
+  height: 16px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 2px;
+}
+
+.documentation-summary {
+  background: rgba(76, 175, 80, 0.1);
+  border-left: 4px solid #4caf50;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #2e7d32;
+}
+
+.documentation-key-points {
+  background: rgba(255, 152, 0, 0.1);
+  border-left: 4px solid #ff9800;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.documentation-key-points ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  list-style-type: none;
+}
+
+.documentation-key-points li {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #e65100;
+  position: relative;
+}
+
+.documentation-key-points li::before {
+  content: '•';
+  color: #ff9800;
+  font-weight: bold;
+  position: absolute;
+  left: -1rem;
+}
+
+.documentation-content {
+  background: rgba(63, 81, 181, 0.1);
+  border-left: 4px solid #3f51b5;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #1a237e;
+  white-space: pre-wrap;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.documentation-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.documentation-content::-webkit-scrollbar-track {
+  background: rgba(63, 81, 181, 0.1);
+  border-radius: 3px;
+}
+
+.documentation-content::-webkit-scrollbar-thumb {
+  background: rgba(63, 81, 181, 0.3);
+  border-radius: 3px;
+}
+
+.documentation-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(63, 81, 181, 0.5);
+}
+
 .final-summary {
   text-align: center;
   padding: 2rem;
@@ -746,6 +851,44 @@
   color: #333;
   font-size: 0.9rem;
   margin-top: 0.5rem;
+}
+
+/* Enhanced Claims list styles */
+.claims-list {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.claim-item.processing {
+  background: #fff3cd;
+  border-color: #ffc107;
+  animation: pulse 2s infinite;
+}
+
+.test-note {
+  background: #d1ecf1;
+  padding: 8px;
+  border-radius: 4px;
+  border-left: 4px solid #17a2b8;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Enhanced processing styles */
+.processing-step {
+  background: #17a2b8;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.step-time {
+  font-size: 0.8rem;
+  color: #28a745;
+  font-weight: 500;
 }
 
 @keyframes pulse {

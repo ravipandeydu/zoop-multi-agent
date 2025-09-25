@@ -143,29 +143,66 @@ async def process_claim_workflow_background(claim_data: Dict[str, Any], db: Asyn
                 )
                 db.add(workflow_log)
         
-        # Store agent results
-        for agent_name in ["intake", "risk_assessment", "routing"]:
-            if f"{agent_name}_result" in result:
-                agent_result = AgentResult(
-                    claim_id=claim.id,
-                    agent_type=agent_name
-                )
-                
-                # Set specific fields based on agent type and result data
-                result_data = result[f"{agent_name}_result"]
-                if agent_name == "intake":
-                    agent_result.validation_errors = json.dumps(result_data.get("validation_errors", [])) if result_data.get("validation_errors") else None
-                    agent_result.is_valid = result_data.get("is_valid", True)
-                elif agent_name == "risk_assessment":
-                    agent_result.risk_score = result_data.get("risk_score")
-                    agent_result.risk_level = result_data.get("risk_level")
-                    agent_result.fraud_indicators = json.dumps(result_data.get("fraud_indicators", [])) if result_data.get("fraud_indicators") else None
-                elif agent_name == "routing":
-                    agent_result.priority = result_data.get("priority")
-                    agent_result.adjuster_tier = result_data.get("adjuster_tier")
-                    agent_result.processing_path = result_data.get("processing_path")
-                
-                db.add(agent_result)
+        # Store agent results - Updated to match orchestrator output format
+        # Check for documentation agent results in the workflow state
+        if "documentation_summary" in result or "documentation_content" in result:
+            agent_result = AgentResult(
+                claim_id=claim.id,
+                agent_type="documentation",
+                summary=result.get("documentation_summary"),
+                documentation=result.get("documentation_content"),
+                key_points=json.dumps(result.get("documentation_key_points", {})) if result.get("documentation_key_points") else None,
+                result_data=json.dumps({
+                    "summary": result.get("documentation_summary"),
+                    "documentation": result.get("documentation_content"),
+                    "key_points": result.get("documentation_key_points", {})
+                })
+            )
+            db.add(agent_result)
+        
+        # Store other agent results from workflow state
+        if "validation_errors" in result:
+            agent_result = AgentResult(
+                claim_id=claim.id,
+                agent_type="intake",
+                validation_errors=json.dumps(result.get("validation_errors", [])) if result.get("validation_errors") else None,
+                is_valid=not bool(result.get("validation_errors")),
+                result_data=json.dumps({
+                    "validation_errors": result.get("validation_errors", []),
+                    "is_valid": not bool(result.get("validation_errors"))
+                })
+            )
+            db.add(agent_result)
+            
+        if "risk_score" in result:
+            agent_result = AgentResult(
+                claim_id=claim.id,
+                agent_type="risk_assessment",
+                risk_score=result.get("risk_score"),
+                risk_level=result.get("risk_level"),
+                fraud_indicators=json.dumps(result.get("risk_reasons", [])) if result.get("risk_reasons") else None,
+                result_data=json.dumps({
+                    "risk_score": result.get("risk_score"),
+                    "risk_level": result.get("risk_level"),
+                    "fraud_indicators": result.get("risk_reasons", [])
+                })
+            )
+            db.add(agent_result)
+            
+        if "priority" in result:
+            agent_result = AgentResult(
+                claim_id=claim.id,
+                agent_type="routing",
+                priority=result.get("priority"),
+                adjuster_tier=result.get("adjuster_tier"),
+                processing_path=result.get("processing_path", "standard"),
+                result_data=json.dumps({
+                    "priority": result.get("priority"),
+                    "adjuster_tier": result.get("adjuster_tier"),
+                    "processing_path": result.get("processing_path", "standard")
+                })
+            )
+            db.add(agent_result)
         
         await db.commit()
         
@@ -209,7 +246,6 @@ async def get_claim_status(claim_id: str, db: AsyncSession = Depends(get_db)):
         validation_errors = []
         if claim.validation_errors:
             try:
-                import json
                 validation_errors = json.loads(claim.validation_errors)
             except:
                 validation_errors = []
@@ -241,7 +277,11 @@ async def get_claim_status(claim_id: str, db: AsyncSession = Depends(get_db)):
                     "priority": result.priority,
                     "adjuster_tier": result.adjuster_tier,
                     "processing_path": result.processing_path,
-                    "is_valid": result.is_valid
+                    "is_valid": result.is_valid,
+                    "summary": result.summary,
+                    "documentation": result.documentation,
+                    "key_points": json.loads(result.key_points) if result.key_points else None,
+                    "created_at": result.created_at.isoformat() if result.created_at else None
                 }
                 for result in agent_results_list[:5]  # Latest 5 results
             ],

@@ -9,6 +9,7 @@ class AgentType(str, Enum):
     INTAKE = "intake"
     RISK_ASSESSMENT = "risk_assessment"
     ROUTING = "routing"
+    DOCUMENTATION = "documentation"
     ORCHESTRATOR = "orchestrator"
 
 
@@ -48,6 +49,11 @@ class AgentResult(Base):
     priority = Column(String, nullable=True)
     adjuster_tier = Column(String, nullable=True)
     processing_path = Column(String, nullable=True)
+    
+    # Documentation Results
+    summary = Column(Text, nullable=True)
+    documentation = Column(Text, nullable=True)  # Generated documentation content
+    key_points = Column(Text, nullable=True)  # JSON string of key points
     
     # Common fields
     result_data = Column(Text, nullable=True)  # JSON string for additional data

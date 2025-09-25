@@ -17,6 +17,7 @@ The backend implements a sophisticated multi-agent architecture:
 - **Intake Agent**: Handles initial claim data validation and processing
 - **Risk Assessment Agent**: Evaluates claim risk levels and priorities
 - **Routing Agent**: Determines appropriate processing paths based on claim characteristics
+- **Documentation Agent**: Generates comprehensive summaries and documentation using ChatGPT
 
 ## 🚀 Quick Start
 
@@ -53,7 +54,16 @@ The backend implements a sophisticated multi-agent architecture:
    pip install -r requirements.txt
    ```
 
-5. **Start the backend server:**
+5. **Configure environment variables:**
+   ```bash
+   # Copy the example environment file
+   cp .env.example .env
+   
+   # Edit .env and add your OpenAI API key
+   # OPENAI_API_KEY=your_openai_api_key_here
+   ```
+
+6. **Start the backend server:**
    ```bash
    python main.py
    ```
@@ -120,12 +130,29 @@ The backend implements a sophisticated multi-agent architecture:
 - `GET /system/metrics` - Get system performance metrics
 - `GET /system/agents/status` - Get multi-agent system status
 
+## ⚙️ Configuration
+
+### Environment Variables
+
+The application requires the following environment variables:
+
+- **OPENAI_API_KEY**: Required for the Documentation Agent to generate summaries using ChatGPT
+
+### Getting an OpenAI API Key
+
+1. Visit [OpenAI's website](https://platform.openai.com/)
+2. Create an account or sign in
+3. Navigate to API Keys section
+4. Create a new API key
+5. Add it to your `.env` file as `OPENAI_API_KEY=your_key_here`
+
 ## 🛠️ Development
 
 ### Backend Development
 - **Framework**: FastAPI with async support
 - **Database**: SQLite with SQLAlchemy ORM
 - **Multi-Agent**: LangGraph for agent orchestration
+- **AI Integration**: OpenAI ChatGPT for documentation generation
 - **API Documentation**: Available at `http://localhost:8000/docs` when running
 
 ### Frontend Development
@@ -153,10 +180,16 @@ The backend runs directly with Python. For production deployment, consider using
 zoop-assignment/
 ├── backend/
 │   ├── agents/              # Multi-agent system components
+│   │   ├── documentation_agent.py  # AI-powered documentation generation
+│   │   ├── intake_agent.py         # Claim intake processing
+│   │   ├── orchestrator_agent.py   # Workflow orchestration
+│   │   ├── risk_assessment_agent.py # Risk evaluation
+│   │   └── routing_agent.py        # Processing path routing
 │   ├── db/                  # Database configuration
 │   ├── models/              # Data models
 │   ├── routes/              # API route handlers
 │   ├── schema/              # Pydantic schemas
+│   ├── .env.example         # Environment variables template
 │   ├── main.py              # FastAPI application entry point
 │   └── requirements.txt     # Python dependencies
 ├── frontend/
@@ -166,6 +199,8 @@ zoop-assignment/
 │   │   └── main.jsx         # React entry point
 │   ├── package.json         # Node.js dependencies
 │   └── vite.config.js       # Vite configuration
+├── agent-interaction-flowchart.svg # System architecture diagram
+├── architecture-diagram.svg        # Technical architecture
 └── README.md                # This file
 ```
 
@@ -186,6 +221,11 @@ zoop-assignment/
 3. **CORS issues:**
    - Backend is configured to allow frontend origin
    - Ensure both servers are running on correct ports
+
+4. **OpenAI API issues:**
+   - Verify your OpenAI API key is correctly set in `.env`
+   - Check your OpenAI account has sufficient credits
+   - Ensure the API key has the necessary permissions
 
 ### Port Configuration
 

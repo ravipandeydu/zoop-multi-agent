@@ -25,6 +25,6 @@ async def init_db():
     from models.claim_models import Claim
     from models.workflow_models import WorkflowLog, AgentResult
     from models.metrics_models import ProcessingMetrics
-    
+
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1000" width="1200" height="1000">
   <defs>
     <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
       <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
@@ -7,7 +7,7 @@
   </defs>
   
   <!-- Background -->
-  <rect width="1200" height="900" fill="#f8f9fa"/>
+  <rect width="1200" height="1000" fill="#f8f9fa"/>
   
   <!-- Title -->
   <text x="600" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#333">
@@ -15,7 +15,7 @@
   </text>
   
   <!-- Legend -->
-  <rect x="20" y="60" width="280" height="100" fill="white" stroke="#ddd" stroke-width="1" rx="5"/>
+  <rect x="20" y="60" width="280" height="120" fill="white" stroke="#ddd" stroke-width="1" rx="5"/>
   <text x="30" y="80" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Legend:</text>
   <circle cx="40" cy="100" r="6" fill="#4a90e2"/>
   <text x="55" y="105" font-family="Arial, sans-serif" font-size="11" fill="#333">Orchestrator Agent</text>
@@ -25,8 +25,10 @@
   <text x="55" y="145" font-family="Arial, sans-serif" font-size="11" fill="#333">Risk Assessment Agent</text>
   <circle cx="180" cy="100" r="6" fill="#bd10e0"/>
   <text x="195" y="105" font-family="Arial, sans-serif" font-size="11" fill="#333">Routing Agent</text>
-  <polygon points="180 115, 190 125, 180 135, 170 125" fill="#ff6b35" stroke="#333" stroke-width="1"/>
-  <text x="195" y="130" font-family="Arial, sans-serif" font-size="11" fill="#333">Decision Point</text>
+  <circle cx="180" cy="120" r="6" fill="#e74c3c"/>
+  <text x="195" y="125" font-family="Arial, sans-serif" font-size="11" fill="#333">Documentation Agent</text>
+  <polygon points="180 135, 190 145, 180 155, 170 145" fill="#ff6b35" stroke="#333" stroke-width="1"/>
+  <text x="195" y="150" font-family="Arial, sans-serif" font-size="11" fill="#333">Decision Point</text>
   
   <!-- Start Node -->
   <ellipse cx="600" cy="200" rx="80" ry="25" fill="#50e3c2" stroke="#333" stroke-width="2"/>
@@ -110,9 +112,18 @@
     (Optimization)
   </text>
   
+  <!-- Documentation Agent (NEW) -->
+  <rect x="520" y="720" width="160" height="50" fill="#e74c3c" stroke="#333" stroke-width="2" rx="8"/>
+  <text x="600" y="740" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">
+    Documentation Agent
+  </text>
+  <text x="600" y="755" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">
+    (LLM-Powered Summary)
+  </text>
+  
   <!-- End Node -->
-  <ellipse cx="600" cy="750" rx="90" ry="25" fill="#50e3c2" stroke="#333" stroke-width="2"/>
-  <text x="600" y="755" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">
+  <ellipse cx="600" cy="820" rx="90" ry="25" fill="#50e3c2" stroke="#333" stroke-width="2"/>
+  <text x="600" y="825" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">
     Claim Processed
   </text>
   
@@ -146,10 +157,13 @@
   <!-- Sequential Processing Flow -->
   <line x1="920" y1="590" x2="920" y2="630" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
   
-  <!-- All paths to End -->
-  <line x1="220" y1="590" x2="550" y2="750" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-  <line x1="600" y1="680" x2="600" y2="725" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-  <line x1="920" y1="680" x2="650" y2="750" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <!-- All paths to Documentation Agent -->
+  <line x1="220" y1="590" x2="550" y2="720" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="600" y1="680" x2="600" y2="720" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="920" y1="680" x2="650" y2="720" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- Documentation Agent to End -->
+  <line x1="600" y1="770" x2="600" y2="795" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
   
   <!-- Inter-Agent Communication (dashed lines) -->
   <line x1="520" y1="275" x2="450" y2="565" stroke="#666" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
@@ -190,14 +204,19 @@
   <text x="720" y="365" font-family="Arial, sans-serif" font-size="9" fill="#666">• Field extraction</text>
   <text x="720" y="380" font-family="Arial, sans-serif" font-size="9" fill="#666">• Format standardization</text>
   
+  <text x="720" y="730" font-family="Arial, sans-serif" font-size="9" fill="#666">• Generate claim summaries</text>
+  <text x="720" y="745" font-family="Arial, sans-serif" font-size="9" fill="#666">• Extract key points</text>
+  <text x="720" y="760" font-family="Arial, sans-serif" font-size="9" fill="#666">• Create documentation</text>
+  
   <!-- Data Flow Indicators -->
   <text x="620" y="240" font-family="Arial, sans-serif" font-size="9" fill="#999">Claim Data</text>
   <text x="620" y="330" font-family="Arial, sans-serif" font-size="9" fill="#999">Validated Data</text>
   <text x="620" y="420" font-family="Arial, sans-serif" font-size="9" fill="#999">Processing Decision</text>
-  <text x="620" y="740" font-family="Arial, sans-serif" font-size="9" fill="#999">Final Result</text>
+  <text x="620" y="710" font-family="Arial, sans-serif" font-size="9" fill="#999">Processing Results</text>
+  <text x="620" y="810" font-family="Arial, sans-serif" font-size="9" fill="#999">Final Result + Documentation</text>
   
   <!-- Processing Statistics -->
-  <rect x="950" y="200" width="220" height="120" fill="white" stroke="#ddd" stroke-width="1" rx="5"/>
+  <rect x="950" y="200" width="220" height="140" fill="white" stroke="#ddd" stroke-width="1" rx="5"/>
   <text x="960" y="220" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333">Processing Statistics:</text>
   <text x="960" y="240" font-family="Arial, sans-serif" font-size="10" fill="#666">• Fast Track: ~30% of claims</text>
   <text x="960" y="255" font-family="Arial, sans-serif" font-size="10" fill="#666">• Parallel Mode: ~50% of claims</text>
@@ -206,4 +225,5 @@
   <text x="970" y="305" font-family="Arial, sans-serif" font-size="9" fill="#666">- Fast Track: 2-5 seconds</text>
   <text x="970" y="318" font-family="Arial, sans-serif" font-size="9" fill="#666">- Parallel: 5-10 seconds</text>
   <text x="970" y="331" font-family="Arial, sans-serif" font-size="9" fill="#666">- Sequential: 10-15 seconds</text>
+  <text x="960" y="350" font-family="Arial, sans-serif" font-size="10" fill="#666">• Documentation: +2-3 seconds</text>
 </svg>
