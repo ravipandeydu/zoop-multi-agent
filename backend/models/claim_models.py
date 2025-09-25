@@ -50,8 +50,12 @@ class Claim(Base):
     customer_tenure_days = Column(Integer, nullable=True)
     previous_claims_count = Column(Integer, default=0)
     
-    # Processing status
+    # Processing status and results
     status = Column(SQLEnum(ClaimStatus), default=ClaimStatus.SUBMITTED)
+    risk_level = Column(SQLEnum(RiskLevel), nullable=True)
+    priority = Column(SQLEnum(Priority), nullable=True)
+    adjuster_tier = Column(SQLEnum(AdjusterTier), nullable=True)
+    validation_errors = Column(Text, nullable=True)  # JSON string of validation errors
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
     

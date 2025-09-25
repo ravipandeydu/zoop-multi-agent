@@ -1,2 +1,7 @@
 venv/
 __pycache__/
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
