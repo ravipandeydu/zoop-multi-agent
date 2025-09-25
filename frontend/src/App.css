@@ -1,9 +1,12 @@
 /* Dashboard Styles */
 .dashboard {
   min-height: 100vh;
+  width: 100%;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   color: #333;
+  margin: 0;
+  padding: 0;
 }
 
 .dashboard-header {
@@ -13,6 +16,8 @@
   text-align: center;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .dashboard-header h1 {
@@ -37,8 +42,8 @@
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 2rem;
   padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Panel Styles */
@@ -755,10 +760,12 @@
     grid-template-columns: 1fr;
     padding: 1rem;
     gap: 1rem;
+    width: 100%;
   }
   
   .dashboard-header {
     padding: 1.5rem;
+    width: 100%;
   }
   
   .dashboard-header h1 {
@@ -809,6 +816,21 @@
   .metrics-summary {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+@media (min-width: 1200px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: none;
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 1600px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 2rem 4rem;
   }
 }
 
@@ -966,91 +988,4 @@
   0% { opacity: 1; }
   50% { opacity: 0.7; }
   100% { opacity: 1; }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-    padding: 1rem;
-    gap: 1rem;
-  }
-  
-  .dashboard-header {
-    padding: 1.5rem;
-  }
-  
-  .dashboard-header h1 {
-    font-size: 2rem;
-  }
-  
-  .metrics-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .metric-card {
-    flex-direction: column;
-    text-align: center;
-    gap: 0.5rem;
-  }
-  
-  .claim-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-  
-  .process-btn {
-    align-self: stretch;
-  }
-  
-  .processing-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .results-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .result-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .result-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.25rem;
-  }
-  
-  .metrics-summary {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
-/* Animation for smooth transitions */
-* {
-  transition: all 0.2s ease;
-}
-
-/* Scrollbar Styling */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #764ba2, #667eea);
 }
